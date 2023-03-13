@@ -43,12 +43,6 @@
                                 </div>
                                 <span v-if="notify['isbn']" class="invalid_feedback" style="display:block; color:red;" role="alert">{{ notify.isbn[0] }} </span>
                             </div>
-                            <!-- <div class="col-12 mb-2">
-                                <div class="form-group">
-                                    <label>Image</label>
-                                    <input required type="file" class="form-control" v-model="book.image">
-                                </div>
-                            </div> -->
                             <div class="col-12 mb-2">
                                 <div class="form-group">
                                     <label>Published</label>

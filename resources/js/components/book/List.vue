@@ -8,6 +8,18 @@
                 <div class="card-header">
                     <h4>Book</h4>
                 </div>
+                <div class="py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label class="me-3">Search</label>
+                                    <input type="text" v-model="queryString" placeholder="Search books by title, author" @change="search"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -55,8 +67,9 @@ export default {
     name:"books",
     data(){
         return {
+            queryString:'',
             books:[],
-            page: 1
+            page: 1,
         }
     },
     mounted(){
@@ -64,15 +77,15 @@ export default {
     },
     
     methods:{
-        async getBooks(page){
-            await this.axios.get(`/api/book?page=${page}`).then(response=>{
+        async getBooks(){
+            await this.axios.get(`/api/book?page=${this.page ?? 1}&search=${this.queryString}`).then(response=>{
                 this.books = response.data.data;
             }).catch(error=>{
                 console.log(error)
                 this.books = []
             })
         },
-        deleteBook(id){
+        async deleteBook(id){
             if(confirm("Are you sure to delete this book ?")){
                 this.axios.delete(`/api/book/${id}`).then(response=>{
                     this.getBooks()
@@ -80,6 +93,10 @@ export default {
                     console.log(error)
                 })
             }
+        },
+        async search(e){
+            this.queryString = e.target.value;
+            this.getBooks()
         }
     }
 }

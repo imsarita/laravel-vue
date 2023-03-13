@@ -12,9 +12,17 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::paginate(10);
+        $books = Book::query()
+        ->when($request->filled('search'), function ($query) use($request){
+            $query->where('title', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('author','LIKE', '%'.$request->search.'%')
+            ->orWhere('published', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('isbn', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('genre', 'LIKE', '%'.$request->search.'%');
+        })
+        ->paginate(10);
         return response()->json($books);
     }
 
