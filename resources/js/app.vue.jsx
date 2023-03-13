@@ -1,0 +1,3 @@
+<template>
+    Laravel vue
+</template>
