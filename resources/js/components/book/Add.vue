@@ -43,12 +43,12 @@
                                 </div>
                                 <span v-if="notify['isbn']" class="invalid_feedback" style="display:block; color:red;" role="alert">{{ notify.isbn[0] }} </span>
                             </div>
-                            <!-- <div class="col-12 mb-2">
+                            <div class="col-12 mb-2">
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <input required type="file" class="form-control" v-model="book.image">
+                                    <input required type="file" class="form-control" ref="image" @change="previewFiles" accept="image/*">
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
                                     <label>Published</label>
@@ -79,13 +79,14 @@ export default {
     name:"book-category",
     data(){
         return {
+            files: [],
             book:{
                 title:"",
                 author:"",
                 genre:"",
                 description:"",
                 isbn:"",
-                // image:"",
+                image:[],
                 published:"",
                 publisher:"",
             },
@@ -100,6 +101,9 @@ export default {
                 this.notify = error.response.data.errors;
                 console.log(error.response)
             })
+        },
+        async previewFiles(e) {
+            this.book.image = e.target.files[0].name;
         }
     }
 }
