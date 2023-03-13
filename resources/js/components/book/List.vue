@@ -36,6 +36,13 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <v-pagination
+                            v-model="page"
+                            :pages="10"
+                            :range-size="1"
+                            active-color="#DCEDFF"
+                            @update:modelValue="getBooks"
+                        />
                     </div>
                 </div>
             </div>
@@ -48,15 +55,17 @@ export default {
     name:"books",
     data(){
         return {
-            books:[]
+            books:[],
+            page: 1
         }
     },
     mounted(){
         this.getBooks()
     },
+    
     methods:{
-        async getBooks(){
-            await this.axios.get('/api/book').then(response=>{
+        async getBooks(page){
+            await this.axios.get(`/api/book?page=${page}`).then(response=>{
                 this.books = response.data.data;
             }).catch(error=>{
                 console.log(error)
