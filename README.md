@@ -1,5 +1,6 @@
-About the repository:
-    This repository is a book store where you can search, add, edit, delete books.It contains  
++ About the repository:
+    This repository is a book store where you can search, add, edit, delete books.It contains:  
+        
     - backend: Larvel 9 ,
     - frontend: Vue 3,
     - packages: {
@@ -7,20 +8,20 @@ About the repository:
         - axios: vue-axios,
         - router: vue-router,
         - vite: @vitejs/plugin-vue,
-    }
+    } 
     
-Required: 
++ Required: 
     - composer
     - node
 
-To set-up:
++ To set-up:
     - git clone https://github.com/imsarita/laravel-vue.git
     - composer install
     - npm install
     - php artisan migrate:fresh --seed
     - npm run dev
 
-About routes:
++ About routes:
   - GET|HEAD        api/book .................................... book.index › BookController@index
   - POST            api/book .................................... book.store › BookController@store
   - GET|HEAD        api/book/{book} ............................... book.show › BookController@show
