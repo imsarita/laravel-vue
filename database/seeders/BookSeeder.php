@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
 
 class BookSeeder extends Seeder
 {
@@ -16,12 +18,12 @@ class BookSeeder extends Seeder
     {
 
         $data = [];
-        for ($i = 0; $i < 9; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $response = Http::get('https://fakerapi.it/api/v1/books?quantity=100');
             $data[$i] = json_decode($response->body())->data;
         }
 
-        for ($i = 0; $i < 9; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             foreach ($data[$i] as $key => $value) {
                 Book::create([
                     'title' => $value->title,
